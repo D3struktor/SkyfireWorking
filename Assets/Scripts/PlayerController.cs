@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private int currentChaingunAmmo;
 
     [SerializeField] private AudioClip slideSound;
+    [SerializeField] private AudioClip jetpackSound;
+    [SerializeField] private AudioClip Shot;
     private AudioSource audioSource;
 
     private bool isAlive = true; // Track if the player is alive
@@ -374,7 +376,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Vector3 jetpackDirection = transform.forward * jetpackForceZ + transform.right * jetpackForceX + Vector3.up * jetpackForceY;
             rb.AddForce(jetpackDirection, ForceMode.Acceleration);
             UseJetpackFuel();
+
+            if (!audioSource.isPlaying)
+            {
+            audioSource.clip = jetpackSound; // Set the audio clip to jetpack sound
+            audioSource.volume = 0.6f; // Set volume to 60%
+            audioSource.Play();
+            }
         }
+            else
+    {
+        // Stop the sound when not using the jetpack
+        if (audioSource.clip == jetpackSound && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
+
 
         if (currentJetpackFuel <= 0)
         {
@@ -574,6 +592,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (healthbarImage != null)
         {
             healthbarImage.fillAmount = currentHealth / maxHealth;
+        }
+        
+        if (Shot != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(Shot);
         }
     }
 

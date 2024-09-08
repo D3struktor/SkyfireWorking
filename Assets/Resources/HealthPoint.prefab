@@ -180,7 +180,7 @@ MonoBehaviour:
   ammoRestorePercentage: 0.3
   restoreCooldown: 60
   pickupSound: {fileID: 8300000, guid: e64031fca51eebf41b3cc0176a063efd, type: 3}
-  volumeBoostFactor: 5
+  volumeBoostFactor: 2
 --- !u!114 &6358870883584295642
 MonoBehaviour:
   m_ObjectHideFlags: 0
